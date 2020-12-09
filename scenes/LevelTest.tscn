@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://scripts/LevelTest.gd" type="Script" id=1]
 [ext_resource path="res://scenes/Hole.tscn" type="PackedScene" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://scenes/Ball.tscn" type="PackedScene" id=4]
 [ext_resource path="res://assets/images/dark_grid.tres" type="Material" id=5]
 [ext_resource path="res://assets/images/green_grid.tres" type="Material" id=6]
+[ext_resource path="res://scenes/Teleport.tscn" type="PackedScene" id=7]
 
 [sub_resource type="BoxShape" id=1]
 
@@ -26,11 +27,21 @@ material = ExtResource( 5 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 0.5, 0 )
 material = ExtResource( 6 )
 
+[node name="Top" type="CSGBox" parent="Content"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 10 )
+use_collision = true
+collision_layer = 5
+collision_mask = 5
+width = 10.0
+height = 10.0
+depth = 10.0
+material = ExtResource( 5 )
+
 [node name="Player" parent="." instance=ExtResource( 3 )]
-transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 11, 1.5, 1 )
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 11, 1.5, -1 )
 
 [node name="Ball" parent="." instance=ExtResource( 4 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 2, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 2, 0 )
 
 [node name="Rockets" type="Spatial" parent="."]
 
@@ -53,5 +64,12 @@ shape = SubResource( 1 )
 [node name="CollisionShape4" type="CollisionShape" parent="Walls"]
 transform = Transform( 1, 0, 0, 0, 100, 0, 0, 0, 25, -25, 100, 0 )
 shape = SubResource( 1 )
+
+[node name="Teleport1" parent="." instance=ExtResource( 7 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 2.04489, 7 )
+
+[node name="Teleport1Destination" type="RayCast" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6, 11 )
+cast_to = Vector3( 0, 0, 1 )
 [connection signal="win" from="Content/Ground/Hole" to="." method="_on_Hole_win"]
 [connection signal="fire_rocket" from="Player" to="." method="_on_Player_fire_rocket"]

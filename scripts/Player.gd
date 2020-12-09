@@ -1,17 +1,15 @@
 extends KinematicBody
 
-export var speed = 10
-export var acceleration = 5
-export var gravity = 0.98
-export var mouse_sensitivity = 0.3
+onready var head = $Head
+onready var camera = $Head/Camera
+onready var rocket_origin = $Head/Camera/Position3DOrigin
+onready var rocket_direction = $Head/Camera/Position3DDirection
 
-onready var _head = $Head
-onready var _camera = $Head/Camera
-onready var _rocket_origin = $Head/Camera/Position3DOrigin
-onready var _rocket_direction = $Head/Camera/Position3DDirection
+export(float) var gravity = -30.0
+export(float) var max_speed = 8.0
+export(float) var mouse_sensitivity = 0.002  # radians/pixel
 
-var _velocity = Vector3()
-var _camera_x_rotation = 0
+var velocity = Vector3()
 
 signal fire_rocket(rocket)
 
@@ -22,41 +20,40 @@ func _ready() -> void:
 
 
 func _input(event: InputEvent) -> void:
-  if event is InputEventMouseMotion:
-    _head.rotate_y(deg2rad(-event.relative.x * mouse_sensitivity))
-
-    var x_delta = event.relative.y * mouse_sensitivity
-    if _camera_x_rotation + x_delta > -90 and _camera_x_rotation + x_delta < 90: 
-      _camera.rotate_x(deg2rad(-x_delta))
-      _camera_x_rotation += x_delta
+  if event is InputEventMouseMotion and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
+    rotate_y(-event.relative.x * mouse_sensitivity)
+    camera.rotate_x(-event.relative.y * mouse_sensitivity)
+    camera.rotation.x = clamp(camera.rotation.x, -1.2, 1.2)
 
 
-func _physics_process(delta: float) -> void:
-  var direction = Vector3()
-
-  var head_basis = _head.get_global_transform().basis
-
-  if Input.is_action_pressed("ui_up"):
-   direction -= head_basis.z
-  elif Input.is_action_pressed("ui_down"):
-   direction += head_basis.z
-  
-  if Input.is_action_pressed("ui_left"):
-   direction -= head_basis.x
-  elif Input.is_action_pressed("ui_right"):
-   direction += head_basis.x
-
+func get_input() -> Vector3:
   if Input.is_action_just_pressed("ui_fire"):
     fire_rocket()
 
-  direction = direction.normalized()
-  _velocity = _velocity.linear_interpolate(direction * speed, acceleration * delta)
-  _velocity.y -= gravity
+  var input_dir = Vector3()
+  # desired move in camera direction
+  if Input.is_action_pressed("ui_up"):
+    input_dir += -camera.global_transform.basis.z
+  if Input.is_action_pressed("ui_down"):
+    input_dir += camera.global_transform.basis.z
+  if Input.is_action_pressed("ui_left"):
+    input_dir += -camera.global_transform.basis.x
+  if Input.is_action_pressed("ui_right"):
+    input_dir += camera.global_transform.basis.x
+  input_dir = input_dir.normalized()
+  return input_dir
 
-  _velocity = move_and_slide(_velocity)
+
+func _physics_process(delta: float) -> void:
+  velocity.y += gravity * delta
+  var desired_velocity = get_input() * max_speed
+
+  velocity.x = desired_velocity.x
+  velocity.z = desired_velocity.z
+  velocity = move_and_slide(velocity, Vector3.UP, true)
 
 
 func fire_rocket() -> void:
   var rocket = Rocket.instance()
-  rocket.launch(_rocket_origin.global_transform, _rocket_direction.global_transform)
+  rocket.launch(rocket_origin.global_transform, rocket_direction.global_transform)
   emit_signal("fire_rocket", rocket)
