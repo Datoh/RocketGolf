@@ -7,9 +7,11 @@ onready var rocket_direction = $Head/Camera/Position3DDirection
 
 export(float) var gravity = -30.0
 export(float) var max_speed = 8.0
+export(float) var jump_speed = 8.0
 export(float) var mouse_sensitivity = 0.002  # radians/pixel
 
 var velocity = Vector3()
+var jump = false
 
 signal fire_rocket(rocket)
 
@@ -29,6 +31,8 @@ func _input(event: InputEvent) -> void:
 func get_input() -> Vector3:
   if Input.is_action_just_pressed("ui_fire"):
     fire_rocket()
+
+  jump = Input.is_action_just_pressed("ui_jump")
 
   var input_dir = Vector3()
   # desired move in camera direction
@@ -51,6 +55,8 @@ func _physics_process(delta: float) -> void:
   velocity.x = desired_velocity.x
   velocity.z = desired_velocity.z
   velocity = move_and_slide(velocity, Vector3.UP, true)
+  if jump and is_on_floor():
+    velocity.y += jump_speed
 
 
 func fire_rocket() -> void:
