@@ -68,6 +68,8 @@ func _on_Timer_timeout() -> void:
 
 
 func _on_Rocket_body_entered(body: Node) -> void:
+  if body.is_in_group("jumper_trigger"):
+    body.do_jump()
   colliding_body = body
   emit_signal("rocket_blow", self)
   queue_free()

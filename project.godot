@@ -70,6 +70,7 @@ ui_jump={
 3d_physics/layer_2="hole"
 3d_physics/layer_3="rocket"
 3d_physics/layer_4="teleport"
+3d_physics/layer_5="jumper"
 
 [rendering]
 
