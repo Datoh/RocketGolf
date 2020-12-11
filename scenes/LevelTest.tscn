@@ -1,6 +1,6 @@
 [gd_scene load_steps=12 format=2]
 
-[ext_resource path="res://scripts/LevelTest.gd" type="Script" id=1]
+[ext_resource path="res://scripts/Level.gd" type="Script" id=1]
 [ext_resource path="res://scenes/Hole.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/Ball.tscn" type="PackedScene" id=4]
@@ -43,39 +43,65 @@ depth = 10.0
 material = ExtResource( 5 )
 
 [node name="Player" parent="." instance=ExtResource( 3 )]
-transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 11, 1.5, -1 )
+transform = Transform( -1, 0, -3.25841e-07, 0, 1, 0, 3.25841e-07, 0, -1, 0, 7.5, -18 )
 
 [node name="Ball" parent="." instance=ExtResource( 4 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0 )
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 2, -11 )
+
+[node name="WallsPlayer" type="StaticBody" parent="."]
+visible = false
+collision_layer = 2147483648
+
+[node name="CollisionShape1" type="CollisionShape" parent="WallsPlayer"]
+transform = Transform( 25, 0, 0, 0, 100, 0, 0, 0, 1, 0, 100, 26 )
+shape = SubResource( 1 )
+
+[node name="CollisionShape2" type="CollisionShape" parent="WallsPlayer"]
+transform = Transform( 25, 0, 0, 0, 100, 0, 0, 0, 1, 0, 100, -26 )
+shape = SubResource( 1 )
+
+[node name="CollisionShape3" type="CollisionShape" parent="WallsPlayer"]
+transform = Transform( 1, 0, 0, 0, 100, 0, 0, 0, 25, 26, 100, 0 )
+shape = SubResource( 1 )
+
+[node name="CollisionShape4" type="CollisionShape" parent="WallsPlayer"]
+transform = Transform( 1, 0, 0, 0, 100, 0, 0, 0, 25, -26, 100, 0 )
+shape = SubResource( 1 )
+
+[node name="WallsBall" type="StaticBody" parent="."]
+collision_layer = 2147483648
+collision_mask = 2
+
+[node name="CollisionShape1" type="CollisionShape" parent="WallsBall"]
+transform = Transform( 25, 0, 0, 0, 100, 0, 0, 0, 1, 0, 100, 24 )
+shape = SubResource( 1 )
+
+[node name="CollisionShape2" type="CollisionShape" parent="WallsBall"]
+transform = Transform( 25, 0, 0, 0, 100, 0, 0, 0, 1, 0, 100, -24 )
+shape = SubResource( 1 )
+
+[node name="CollisionShape3" type="CollisionShape" parent="WallsBall"]
+transform = Transform( 1, 0, 0, 0, 100, 0, 0, 0, 25, 24, 100, 0 )
+shape = SubResource( 1 )
+
+[node name="CollisionShape4" type="CollisionShape" parent="WallsBall"]
+transform = Transform( 1, 0, 0, 0, 100, 0, 0, 0, 25, -24, 100, 0 )
+shape = SubResource( 1 )
 
 [node name="Rockets" type="Spatial" parent="."]
 
-[node name="Walls" type="StaticBody" parent="."]
-collision_layer = 2147483651
-collision_mask = 3
+[node name="Teleports" type="Spatial" parent="."]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -7, 2, -18 )
 
-[node name="CollisionShape1" type="CollisionShape" parent="Walls"]
-transform = Transform( 25, 0, 0, 0, 100, 0, 0, 0, 1, 0, 100, 25 )
-shape = SubResource( 1 )
+[node name="Teleport1" parent="Teleports" instance=ExtResource( 7 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 25, 0.0448899, -18 )
 
-[node name="CollisionShape2" type="CollisionShape" parent="Walls"]
-transform = Transform( 25, 0, 0, 0, 100, 0, 0, 0, 1, 0, 100, -25 )
-shape = SubResource( 1 )
+[node name="Teleport1Destination" parent="Teleports" instance=ExtResource( 8 )]
+transform = Transform( 1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, 25, 4, -7 )
 
-[node name="CollisionShape3" type="CollisionShape" parent="Walls"]
-transform = Transform( 1, 0, 0, 0, 100, 0, 0, 0, 25, 25, 100, 0 )
-shape = SubResource( 1 )
+[node name="Jumpers" type="Spatial" parent="."]
 
-[node name="CollisionShape4" type="CollisionShape" parent="Walls"]
-transform = Transform( 1, 0, 0, 0, 100, 0, 0, 0, 25, -25, 100, 0 )
-shape = SubResource( 1 )
-
-[node name="Teleport1" parent="." instance=ExtResource( 7 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 2.04489, 7 )
-
-[node name="Teleport1Destination" parent="." instance=ExtResource( 8 )]
-transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 6, 7 )
-
-[node name="Jumper1" parent="." instance=ExtResource( 10 )]
+[node name="Jumper1" parent="Jumpers" instance=ExtResource( 10 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 1, -8 )
+[connection signal="win" from="Content/Ground/Hole" to="." method="_on_Hole_win"]
 [connection signal="fire_rocket" from="Player" to="." method="_on_Player_fire_rocket"]
