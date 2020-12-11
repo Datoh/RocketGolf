@@ -1,19 +1,19 @@
 extends Area
 
 export(float) var speed := 25.0
-export(float) var blow_radius := 5.0
+export(float) var blow_radius := 3.0
 export(float) var blow_force := 20.0
-var velocity := Vector3()
 
+var velocity := Vector3.ZERO
 var colliding_body: Spatial = null
 
 signal rocket_blow(rocket)
+
 
 func launch(origin: Transform, direction: Transform) -> void:
   global_transform = origin
   transform = direction
   velocity = -transform.basis.z * speed
-
 
 func hit(body: Spatial, position: Vector3) -> bool:
   var hit := colliding_body == body
@@ -48,30 +48,28 @@ func hit(body: Spatial, position: Vector3) -> bool:
 
   if hit:
     var impulse_direction = global_transform.origin.direction_to(position)
-    var impulse_force = (blow_radius - distance) / blow_radius * blow_force
-    impulse_direction = impulse_direction.normalized() + Vector3.UP
-    body.apply_central_impulse(impulse_direction.normalized() * impulse_force)
+    var impulse_force = (blow_radius - distance) / blow_radius
+    # far is the explosion, lower is the impulse
+    impulse_force = ease(impulse_force, 2.6) # see https://godotengine.org/qa/59172/how-do-i-properly-use-the-ease-function
+    body.apply_central_impulse(impulse_direction.normalized() * impulse_force * blow_force)
     
   return hit
-
-
-func _process(delta: float) -> void:
-  transform.origin += velocity * delta
 
 
 func _on_Timer_timeout() -> void:
   queue_free()
 
 
+func _physics_process(delta: float) -> void:
+  transform.origin += velocity * delta
+
+
 func _on_Rocket_body_entered(body: Node) -> void:
+  if colliding_body != null: # already collide
+    return
+
   if body.is_in_group("jumper_trigger"):
     body.do_jump()
   colliding_body = body
   emit_signal("rocket_blow", self)
   queue_free()
-
-
-func _on_Rocket_area_entered(_area: Area) -> void:
-  emit_signal("rocket_blow", self)
-  queue_free()
-

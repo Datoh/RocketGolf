@@ -61,5 +61,5 @@ func _physics_process(delta: float) -> void:
 
 func fire_rocket() -> void:
   var rocket = Rocket.instance()
-  rocket.launch(rocket_origin.global_transform, rocket_direction.global_transform)
   emit_signal("fire_rocket", rocket)
+  rocket.launch(rocket_origin.global_transform, rocket_direction.global_transform)
