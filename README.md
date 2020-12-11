@@ -1,6 +1,6 @@
 # RocketGolf
 
-Play golf with Rocket Launcher.
+Play golf with a Rocket Launcher.
 A game made with [Godot](https://godotengine.org/) for [7DFps 2020](https://itch.io/jam/7dfps-2020).
 
 
