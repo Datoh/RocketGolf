@@ -25,9 +25,6 @@ func hit(body: Spatial, position: Vector3) -> bool:
     for overlapping_body in get_overlapping_bodies():
       hit = hit || overlapping_body == body
   
-  if hit:
-    print("hit ball directly")    
-   
   # else check if near 
   if !hit:
     var raycast = $RayCast
@@ -36,9 +33,9 @@ func hit(body: Spatial, position: Vector3) -> bool:
     raycast.force_raycast_update()
     if colliding_body == raycast.get_collider():
       raycast.global_transform.origin = raycast.get_collision_point()
+      raycast.transform.origin -= velocity.normalized() * 0.1
      
     raycast.look_at(position, Vector3.UP)
-    raycast.cast_to = Vector3.ZERO
     raycast.cast_to.z = -blow_radius
     raycast.force_raycast_update()
     hit = body == raycast.get_collider()
@@ -46,8 +43,7 @@ func hit(body: Spatial, position: Vector3) -> bool:
       collider_point = raycast.get_collision_point()
       distance = collider_point.distance_to(global_transform.origin)
       hit = distance < blow_radius
-      if hit:
-        print("hit ball indirectly") 
+
     raycast.global_transform.origin = global_transform.origin  
 
   if hit:
