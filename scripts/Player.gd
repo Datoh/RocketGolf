@@ -25,7 +25,7 @@ func _input(event: InputEvent) -> void:
   if event is InputEventMouseMotion and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
     rotate_y(-event.relative.x * mouse_sensitivity)
     camera.rotate_x(-event.relative.y * mouse_sensitivity)
-    camera.rotation.x = clamp(camera.rotation.x, -1.2, 1.2)
+    camera.rotation.x = clamp(camera.rotation.x, -1.5, 1.5)
 
 
 func get_input() -> Vector3:
