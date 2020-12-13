@@ -65,9 +65,9 @@ func _physics_process(delta: float) -> void:
   var colliding_info = move_and_collide(velocity * delta)
   if colliding_info != null:
     colliding_body = colliding_info.collider
-    print(colliding_body.name)
     if colliding_body.is_in_group("ball"):
       colliding_body = colliding_body.get_parent()
+    print(colliding_body.name)
     colliding_position = colliding_info.position
     if colliding_body.is_in_group("jumper_trigger"):
       colliding_body.do_jump()

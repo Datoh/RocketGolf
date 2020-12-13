@@ -45,10 +45,10 @@ __meta__ = {
 }
 
 [node name="Crosshair" type="TextureRect" parent="Head/Camera/CenterContainer"]
-margin_left = 512.0
-margin_top = 300.0
-margin_right = 512.0
-margin_bottom = 300.0
+margin_left = 960.0
+margin_top = 540.0
+margin_right = 960.0
+margin_bottom = 540.0
 texture = ExtResource( 2 )
 expand = true
 stretch_mode = 4

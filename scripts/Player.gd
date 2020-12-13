@@ -4,6 +4,8 @@ onready var head = $Head
 onready var camera = $Head/Camera
 onready var rocket_origin = $Head/Camera/Position3DOrigin
 onready var rocket_direction = $Head/Camera/Position3DDirection
+onready var player_position = global_transform
+onready var camera_position = $Head/Camera.global_transform
 
 export(float) var gravity = -30.0
 export(float) var max_speed = 8.0
@@ -26,6 +28,11 @@ func _input(event: InputEvent) -> void:
     rotate_y(-event.relative.x * mouse_sensitivity)
     camera.rotate_x(-event.relative.y * mouse_sensitivity)
     camera.rotation.x = clamp(camera.rotation.x, -1.5, 1.5)
+
+
+func init() -> void:
+  global_transform = player_position
+  camera.global_transform = camera_position
 
 
 func get_input() -> Vector3:
