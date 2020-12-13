@@ -1,6 +1,5 @@
 extends StaticBody
 
 func do_jump() -> void:
-  var root = get_tree().root.get_child(0)
-  var jumper = root.find_node(name + "Destination")
+  var jumper = get_tree().root.find_node(name + "Destination", true, false)
   jumper.do_jump()
