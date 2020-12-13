@@ -3,7 +3,7 @@ extends Spatial
 onready var _ball := $Ball
 
 func _physics_process(_delta: float) -> void:
-  if Input.is_action_just_pressed("ui_cancel"):
+  if Input.is_action_just_pressed("ui_restart"):
     get_tree().reload_current_scene()
 
 
