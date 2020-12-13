@@ -10,8 +10,8 @@ extents = Vector3( 1, 1.75, 0.2 )
 [node name="Teleport" type="CSGBox"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.04489, 0 )
 use_collision = true
-collision_layer = 5
-collision_mask = 5
+collision_layer = 0
+collision_mask = 7
 width = 3.0
 height = 4.0
 depth = 0.5
