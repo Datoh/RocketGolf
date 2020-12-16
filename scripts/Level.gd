@@ -28,7 +28,7 @@ func _physics_process(_delta: float) -> void:
     Global.previous_level()
   if Input.is_action_just_pressed("ui_level_test"):
     get_tree().change_scene("res://scenes/LevelTest.tscn")
-  if win and Input.is_action_just_pressed("ui_accept"):
+  if win and (Input.is_action_just_pressed("ui_accept") or Input.is_action_just_pressed("ui_accept_mouse")):
     Global.next_level()
 
 

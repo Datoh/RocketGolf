@@ -3,7 +3,7 @@ extends Control
 onready var answers = [ find_node("Answer1"), find_node("Answer2") ]
 onready var selected_answer: Label = find_node("Answer1")
 
-var question_index = 1
+var question_index = 0
 var questions = [
   "Pick your weapons ?",
   "Are you sure ?",

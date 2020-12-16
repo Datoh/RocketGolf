@@ -36,9 +36,10 @@ func previous_level() -> void:
 
 func next_level() -> void:
   if level_index >= levels.size() - 1:
-    return
-  level_index += 1
-  get_tree().change_scene("res://scenes/levels/" + levels[level_index] + ".tscn")
+    get_tree().change_scene("res://scenes/TitleScreen.tscn")
+  else:
+    level_index += 1
+    get_tree().change_scene("res://scenes/levels/" + levels[level_index] + ".tscn")
 
 
 func restart() -> void:
