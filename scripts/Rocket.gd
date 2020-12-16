@@ -1,7 +1,7 @@
 extends KinematicBody
 
 export(float) var speed := 25.0
-export(float) var blow_radius := 3.0
+export(float) var blow_radius := 5.0
 export(float) var blow_force_direct := 20.0
 export(float) var blow_force_indirect := 20.0
 export(float) var factor_add_velocity_hit_directly := 0.5
