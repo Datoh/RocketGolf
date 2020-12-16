@@ -2,8 +2,8 @@
 
 importer="texture"
 type="StreamTexture"
-path.s3tc="res://.import/texture_04.png-3856e6f535f7f32acbe814c21a5dc7cc.s3tc.stex"
-path.etc2="res://.import/texture_04.png-3856e6f535f7f32acbe814c21a5dc7cc.etc2.stex"
+path.s3tc="res://.import/explosion08.png-eb12a9ea06f51c544f58787346742ee1.s3tc.stex"
+path.etc2="res://.import/explosion08.png-eb12a9ea06f51c544f58787346742ee1.etc2.stex"
 metadata={
 "imported_formats": [ "s3tc", "etc2" ],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://assets/images/Green/texture_04.png"
-dest_files=[ "res://.import/texture_04.png-3856e6f535f7f32acbe814c21a5dc7cc.s3tc.stex", "res://.import/texture_04.png-3856e6f535f7f32acbe814c21a5dc7cc.etc2.stex" ]
+source_file="res://assets/images/explosion08.png"
+dest_files=[ "res://.import/explosion08.png-eb12a9ea06f51c544f58787346742ee1.s3tc.stex", "res://.import/explosion08.png-eb12a9ea06f51c544f58787346742ee1.etc2.stex" ]
 
 [params]
 

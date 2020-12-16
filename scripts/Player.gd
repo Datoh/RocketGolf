@@ -12,6 +12,7 @@ export(float) var max_speed = 8.0
 export(float) var jump_speed = 8.0
 export(float) var mouse_sensitivity = 0.002  # radians/pixel
 
+var enabled = true
 var velocity = Vector3()
 var jump = false
 
@@ -24,6 +25,8 @@ func _ready() -> void:
 
 
 func _input(event: InputEvent) -> void:
+  if not enabled:
+    return
   if event is InputEventMouseMotion and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
     rotate_y(-event.relative.x * mouse_sensitivity)
     camera.rotate_x(-event.relative.y * mouse_sensitivity)
@@ -56,6 +59,8 @@ func get_input() -> Vector3:
 
 
 func _physics_process(delta: float) -> void:
+  if !enabled:
+    return
   velocity.y += gravity * delta
   var desired_velocity = get_input() * max_speed
 
