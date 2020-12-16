@@ -41,6 +41,8 @@ func restart() -> void:
 
 
 func _on_Hole_win() -> void:
+  AudioManager.play("res://assets/audio/jingles_STEEL15.ogg", $Player.global_transform.origin)
+  
   win = true
   $Player.enabled = false
 
@@ -69,5 +71,6 @@ func _on_rocket_blow(rocket: Spatial) -> void:
   explosion.launch()
   var hit = rocket.hit(ball, ball.global_transform.origin)
   # 0: hit ball directly, 1: hit ball indrectly, 2: hit but not the ball
+  AudioManager.play("res://assets/audio/lowFrequency_explosion_001.ogg", rocket.global_transform.origin)
   if hit == 0:
-    pass
+    AudioManager.play("res://assets/audio/impactMetal_000.ogg", rocket.global_transform.origin)
