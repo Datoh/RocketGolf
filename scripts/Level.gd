@@ -74,3 +74,7 @@ func _on_rocket_blow(rocket: Spatial) -> void:
   AudioManager.play("res://assets/audio/lowFrequency_explosion_001.ogg", rocket.global_transform.origin)
   if hit == 0:
     AudioManager.play("res://assets/audio/impactMetal_000.ogg", rocket.global_transform.origin)
+
+
+func _on_FallingArea_body_entered(_body: Node) -> void:
+  $Ball.init()
