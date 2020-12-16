@@ -21,11 +21,7 @@ func draw_victory() -> void:
   var minutes = Global.level_time - seconds
   find_node("VictoryTimeLabel").text = "Time: " + str(minutes) + ":" + str(seconds).pad_zeros(2)
   find_node("VictoryRocketLabel").text = "Rockets: " + str(Global.level_rockets_count)
-  var score = 100
-  score -= (Global.level_time - (Global.level_time % 10)) / 10
-  score -= Global.level_rockets_count * 5
-  find_node("VictoryScoreLabel").text = "Score: " + str(score) + "%"
-   
+  find_node("VictoryScoreLabel").text = "Score: " + str(Global.level_score) + "%"
   find_node("InGame").visible = false
   find_node("Victory").visible = true
 
