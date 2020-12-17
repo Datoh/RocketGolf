@@ -5,6 +5,7 @@ const SAVEGAME = "user://savegame.save"
 var levels = [
   "LevelFirstShot",
   "LevelKingOfTheHill",
+  "LevelBridge",
   "LevelHighJump",
   "LevelSniper",
   "LevelJumper"
