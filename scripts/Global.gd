@@ -6,6 +6,7 @@ var levels = [
   "LevelFirstShot",
   "LevelKingOfTheHill",
   "LevelBridge",
+  "LevelSnail",
   "LevelHighJump",
   "LevelSniper",
   "LevelJumper"
