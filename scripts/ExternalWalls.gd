@@ -1,5 +1,6 @@
 extends Spatial
 
+export(bool) var enabled_force_field = true
 export(float) var height = 60.0
 export(float) var inset = 2.0
 
@@ -11,6 +12,12 @@ var mdt := MeshDataTool.new()
 signal ball_falling(ball)
 
 func _ready() -> void:
+  if !enabled_force_field:
+    $ForceField.queue_free()
+    $ExternalWallsPlayer.queue_free()
+    $ExternalWallsBall.queue_free()
+    return
+
   for obj in get_tree().get_nodes_in_group("external_wall"):
     if obj is MeshInstance:
       _add_mesh(obj.mesh, Transform())
