@@ -11,6 +11,7 @@ var levels = [
   "LevelSniper",
   "LevelDoubleShot",
   "LevelJumper",
+  "LevelPlatform",
 ]
 var level_index = 0
 
