@@ -2,7 +2,13 @@ extends Node
 
 const SAVEGAME = "user://savegame.save"
 
-var levels = [ "Level1", "Level2", "Level3", "Level4", "Level5" ]
+var levels = [ 
+  "LevelFirstShot", 
+  "LevelKingOfTheHill", 
+  "LevelHighJump", 
+  "LevelSniper", 
+  "LevelJumper"
+]
 var level_index = 0
 
 var level_rockets_count := 0

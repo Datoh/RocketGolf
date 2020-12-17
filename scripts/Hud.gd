@@ -8,7 +8,7 @@ func _ready() -> void:
   
   
 func set_title(title: String) -> void:
-  find_node("TitleLabel").text = title
+  find_node("TitleLabel").text = str(Global.level_index + 1) + ". " + title
 
 
 func set_help() -> void:
