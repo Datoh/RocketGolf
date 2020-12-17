@@ -9,7 +9,8 @@ var levels = [
   "LevelSnail",
   "LevelHighJump",
   "LevelSniper",
-  "LevelJumper"
+  "LevelDoubleShot",
+  "LevelJumper",
 ]
 var level_index = 0
 
