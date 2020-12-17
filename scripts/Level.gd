@@ -76,5 +76,5 @@ func _on_rocket_blow(rocket: Spatial) -> void:
     AudioManager.play("res://assets/audio/impactMetal_000.ogg", rocket.global_transform.origin)
 
 
-func _on_FallingArea_body_entered(_body: Node) -> void:
-  $Ball.init()
+func _on_ball_falling(ball) -> void:
+  ball.init()

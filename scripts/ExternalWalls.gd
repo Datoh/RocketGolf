@@ -8,6 +8,8 @@ var max_point = null
 
 var mdt := MeshDataTool.new()
 
+signal ball_falling(ball)
+
 func _ready() -> void:
   for obj in get_tree().get_nodes_in_group("external_wall"):
     if obj is MeshInstance:
@@ -60,3 +62,7 @@ func _add_mesh(mesh: Mesh, transform: Transform) -> void:
     max_point.x = max(vertex.x, max_point.x)
     max_point.y = max(vertex.y, max_point.y)
     max_point.z = max(vertex.z, max_point.z)
+
+
+func _on_FallingArea_body_entered(body: Node) -> void:
+  emit_signal("ball_falling", body)

@@ -2,11 +2,11 @@ extends Node
 
 const SAVEGAME = "user://savegame.save"
 
-var levels = [ 
-  "LevelFirstShot", 
-  "LevelKingOfTheHill", 
-  "LevelHighJump", 
-  "LevelSniper", 
+var levels = [
+  "LevelFirstShot",
+  "LevelKingOfTheHill",
+  "LevelHighJump",
+  "LevelSniper",
   "LevelJumper"
 ]
 var level_index = 0
