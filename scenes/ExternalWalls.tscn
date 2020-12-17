@@ -1,0 +1,66 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://assets/shaders/force_field.shader" type="Shader" id=1]
+[ext_resource path="res://assets/images/hexagon_grid.png" type="Texture" id=2]
+[ext_resource path="res://scripts/ExternalWalls.gd" type="Script" id=3]
+
+[sub_resource type="CubeMesh" id=1]
+size = Vector3( 1, 1, 1 )
+
+[sub_resource type="ShaderMaterial" id=2]
+shader = ExtResource( 1 )
+shader_param/color = Color( 0.298039, 0.364706, 0.815686, 1 )
+shader_param/fresnel_power = 8.0
+shader_param/edge_intensity = 2.0
+shader_param/fill_amount = 0.1
+shader_param/pulsing_strength = 0.1
+shader_param/pulsing_speed = 1.0
+shader_param/scanline_period = 0.5
+shader_param/scanline_width = 0.1
+shader_param/scanline_intensity = 0.35
+shader_param/pattern_scroll_speed = 0.025
+shader_param/pattern_uv_offset = Vector2( 9, 9 )
+shader_param/pattern_texture = ExtResource( 2 )
+
+[sub_resource type="BoxShape" id=3]
+extents = Vector3( 0.5, 0.5, 0.5 )
+
+[node name="ExternalWalls" type="Spatial"]
+script = ExtResource( 3 )
+
+[node name="ForceField" type="MeshInstance" parent="."]
+mesh = SubResource( 1 )
+material/0 = SubResource( 2 )
+
+[node name="ExternalWallsPlayer" type="StaticBody" parent="."]
+visible = false
+collision_layer = 0
+
+[node name="Forward" type="CollisionShape" parent="ExternalWallsPlayer"]
+shape = SubResource( 3 )
+
+[node name="Backward" type="CollisionShape" parent="ExternalWallsPlayer"]
+shape = SubResource( 3 )
+
+[node name="Left" type="CollisionShape" parent="ExternalWallsPlayer"]
+shape = SubResource( 3 )
+
+[node name="Right" type="CollisionShape" parent="ExternalWallsPlayer"]
+shape = SubResource( 3 )
+
+[node name="ExternalWallsBall" type="StaticBody" parent="."]
+visible = false
+collision_layer = 0
+collision_mask = 2
+
+[node name="Forward" type="CollisionShape" parent="ExternalWallsBall"]
+shape = SubResource( 3 )
+
+[node name="Backward" type="CollisionShape" parent="ExternalWallsBall"]
+shape = SubResource( 3 )
+
+[node name="Left" type="CollisionShape" parent="ExternalWallsBall"]
+shape = SubResource( 3 )
+
+[node name="Right" type="CollisionShape" parent="ExternalWallsBall"]
+shape = SubResource( 3 )
