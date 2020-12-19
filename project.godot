@@ -8,9 +8,20 @@
 
 config_version=4
 
-_global_script_classes=[  ]
+_global_script_classes=[ {
+"base": "VisualShaderNodeCustom",
+"class": "VisualShaderNodeUVswirl",
+"language": "GDScript",
+"path": "res://assets/shaders/swirlUV.gd"
+}, {
+"base": "VisualShaderNodeCustom",
+"class": "VisualShaderToolsSinTIME",
+"language": "GDScript",
+"path": "res://assets/shaders/sinTime.gd"
+} ]
 _global_script_class_icons={
-
+"VisualShaderNodeUVswirl": "",
+"VisualShaderToolsSinTIME": ""
 }
 
 [application]
