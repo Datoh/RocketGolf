@@ -5,6 +5,7 @@ export(String) var title = "Level test"
 const Explosion = preload("res://scenes/Explosion.tscn")
 
 onready var ball := $Ball
+var debug_overlay = null
 
 var win = false
 
@@ -14,10 +15,21 @@ func _ready() -> void:
   Global.level_time = 0
 
 
+func _debug_overlay() -> void:
+  if debug_overlay != null:
+    remove_child(debug_overlay)
+    debug_overlay = null
+  else:
+    debug_overlay = load("res://scenes/DebugOverlay.tscn").instance()
+    add_child(debug_overlay)
+
+
 func _physics_process(_delta: float) -> void:
   if Input.is_action_just_pressed("ui_switch_control"):
     Global.switch_keys()
     $Hud.set_help()
+  if Input.is_action_just_pressed("ui_debug"):
+    _debug_overlay()
   if Input.is_action_just_pressed("ui_restart"):
     restart()
   if Input.is_action_just_pressed("ui_cancel"):
