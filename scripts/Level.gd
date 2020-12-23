@@ -8,6 +8,7 @@ onready var ball := $Ball
 var debug_overlay = null
 
 var win = false
+var last_collider_rocket: Spatial = null
 
 func _ready() -> void:
   $Hud.set_title(title)
@@ -21,6 +22,10 @@ func _debug_overlay() -> void:
     debug_overlay = null
   else:
     debug_overlay = load("res://scenes/DebugOverlay.tscn").instance()
+    debug_overlay.add_stat("Rocket hit", self, "_dbg_last_colllider_rocket", true)
+    debug_overlay.add_stat("Checkpoint", ball, "priority_position", false)
+    debug_overlay.add_stat("Ball linear_velocity", ball, "linear_velocity", false)
+    debug_overlay.add_stat("Ball angular_velocity", ball, "angular_velocity", false)
     add_child(debug_overlay)
 
 
@@ -76,7 +81,8 @@ func _on_Player_fire_rocket(rocket: Spatial) -> void:
   rocket.connect("rocket_blow", self, "_on_rocket_blow")
 
 
-func _on_rocket_blow(rocket: Spatial) -> void:
+func _on_rocket_blow(rocket: Spatial, collider: Spatial) -> void:
+  last_collider_rocket = collider
   var explosion = Explosion.instance()  
   $Rockets.add_child(explosion)
   explosion.global_transform.origin = rocket.global_transform.origin
@@ -90,3 +96,7 @@ func _on_rocket_blow(rocket: Spatial) -> void:
 
 func _on_ball_falling(falling_ball: RigidBody) -> void:
   falling_ball.init()
+
+
+func _dbg_last_colllider_rocket() -> String:
+  return last_collider_rocket.name if last_collider_rocket != null else "Null"

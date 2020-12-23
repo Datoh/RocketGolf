@@ -73,9 +73,8 @@ func _physics_process(delta: float) -> void:
     colliding_body = colliding_info.collider
     if colliding_body.is_in_group("ball"):
       colliding_body = colliding_body.get_parent()
-    print(colliding_body.name)
     colliding_position = colliding_info.position
     if colliding_body.is_in_group("jumper_trigger"):
       colliding_body.do_jump()
-    emit_signal("rocket_blow", self)
+    emit_signal("rocket_blow", self, colliding_body)
     queue_free()
