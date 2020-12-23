@@ -4,9 +4,12 @@ onready var ball_position = global_transform
 var priority_position := -1
 var is_moving := false
 var need_init := false
+var need_stop := false
 
 func _physics_process(_delta: float) -> void:
   if _need_init():
+    return
+  if _need_stop():
     return
   var was_moving = is_moving
   is_moving = linear_velocity.length_squared() < 0.3 and angular_velocity.length_squared() < 0.8
@@ -29,6 +32,21 @@ func _need_init() -> bool:
     linear_velocity = Vector3.ZERO
     angular_velocity = Vector3.ZERO
     need_init = false
+    return true
+  else:
+    return false
+
+
+func stop() -> void:
+  need_stop = true
+
+
+func _need_stop() -> bool:
+  if need_stop:
+    is_moving = false
+    linear_velocity = Vector3.ZERO
+    angular_velocity = Vector3.ZERO
+    need_stop = false
     return true
   else:
     return false
