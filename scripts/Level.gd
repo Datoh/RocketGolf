@@ -14,6 +14,8 @@ func _ready() -> void:
   $Hud.set_title(title)
   Global.level_rockets_count = 0
   Global.level_time = 0
+  if Global.debug_overlay:
+    _debug_overlay()
 
 
 func _debug_overlay() -> void:
@@ -27,6 +29,7 @@ func _debug_overlay() -> void:
     debug_overlay.add_stat("Ball linear_velocity", ball, "linear_velocity", false)
     debug_overlay.add_stat("Ball angular_velocity", ball, "angular_velocity", false)
     add_child(debug_overlay)
+  Global.debug_overlay = debug_overlay != null
 
 
 func _physics_process(_delta: float) -> void:
