@@ -12,7 +12,7 @@ func _physics_process(_delta: float) -> void:
   if _need_stop():
     return
   var was_moving = is_moving
-  is_moving = linear_velocity.length_squared() < 0.3 and angular_velocity.length_squared() < 0.8
+  is_moving = linear_velocity.length_squared() >= 0.3 or angular_velocity.length_squared() >= 0.8
   if was_moving and !is_moving:
     get_tree().call_group("checkpoint", "check", self)
 
