@@ -67,9 +67,9 @@ func _on_Hole_win() -> void:
   $Player.enabled = false
 
   Global.level_score = 100
-  Global.level_score -= (Global.level_time - (Global.level_time % 10)) / 10
+  Global.level_score -= int(float(Global.level_time - (Global.level_time % 10)) / 10)
   Global.level_score -= Global.level_rockets_count * 5
-  Global.level_score = max(0, Global.level_score)
+  Global.level_score = int(max(0, Global.level_score))
 
   Global.total_time += Global.level_time
   Global.total_rockets_count += Global.level_rockets_count
