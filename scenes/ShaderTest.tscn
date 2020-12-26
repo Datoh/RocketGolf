@@ -1,0 +1,233 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://assets/shaders/fireFX.gd" type="Script" id=1]
+[ext_resource path="res://assets/shaders/vec2Compose.gd" type="Script" id=2]
+
+[sub_resource type="CylinderMesh" id=1]
+height = 1.0
+
+[sub_resource type="VisualShaderNodeColorConstant" id=2]
+constant = Color( 0.112833, 0.856589, 0, 1 )
+
+[sub_resource type="VisualShaderNodeColorConstant" id=3]
+constant = Color( 0.074242, 0.563621, 0, 1 )
+
+[sub_resource type="VisualShaderNodeCustom" id=4]
+default_input_values = [ 1, Vector3( 0, 1, 0 ), 2, 0.3, 3, Vector3( 1, 1, 0 ), 4, 1.0, 5, Vector3( 1, 0.5, 0 ), 6, 1.0, 7, Vector3( 1, 0, 0 ), 8, 1.0, 9, 0, 10, 0.4, 11, 0.2, 12, 0.0 ]
+script = ExtResource( 1 )
+
+[sub_resource type="VisualShaderNodeInput" id=5]
+input_name = "time"
+
+[sub_resource type="VisualShaderNodeInput" id=6]
+input_name = "uv"
+
+[sub_resource type="VisualShaderNodeCustom" id=7]
+default_input_values = [ 0, 1.0, 1, 90.0 ]
+script = ExtResource( 2 )
+
+[sub_resource type="VisualShaderNodeColorConstant" id=8]
+constant = Color( 0.027933, 0.212058, 0, 1 )
+
+[sub_resource type="VisualShader" id=9]
+code = "shader_type spatial;
+render_mode specular_schlick_ggx;
+
+
+
+// vec2Compose
+
+vec2 vec2ComposeFunc(float _vec2_length, float _vec2_angl_rad){
+	return vec2(cos(_vec2_angl_rad), sin(_vec2_angl_rad)) * _vec2_length;
+}
+
+// FireFX
+
+float cnoiseFireFXTempFunc(vec3 P) {
+  vec3 Pi0 = floor(P);
+  vec3 Pi1 = Pi0 + vec3(1.0);
+  Pi0 = Pi0 - floor(Pi0 * (1.0 / 289.0)) * 289.0;
+  Pi1 = Pi1 - floor(Pi1 * (1.0 / 289.0)) * 289.0;
+  vec3 Pf0 = fract(P);
+  vec3 Pf1 = Pf0 - vec3(1.0);
+  vec4 ix = vec4(Pi0.x, Pi1.x, Pi0.x, Pi1.x);
+  vec4 iy = vec4(Pi0.yy, Pi1.yy);
+  vec4 iz0 = vec4(Pi0.z);
+  vec4 iz1 = vec4(Pi1.z);
+
+  ix = ((ix*34.0)+1.0)*ix - floor(((ix*34.0)+1.0)*ix * (1.0 / 289.0)) * 289.0;
+  vec4 ixy = (((ix + iy)*34.0)+1.0)*(ix + iy) - floor((((ix + iy)*34.0)+1.0)*(ix + iy) * (1.0 / 289.0)) * 289.0;
+  vec4 ixy0 = (((ixy + iz0) * 34.0)+1.0)* (ixy + iz0) - floor((( (ixy + iz0) *34.0)+1.0)* (ixy + iz0) * (1.0 / 289.0)) * 289.0;
+  vec4 ixy1 = (((ixy + iz1)*34.0)+1.0)*(ixy + iz1) - floor((((ixy + iz1)*34.0)+1.0)*(ixy + iz1) * (1.0 / 289.0)) * 289.0;
+
+  vec4 gx0 = ixy0 * (1.0 / 7.0);
+  vec4 gy0 = fract(floor(gx0) * (1.0 / 7.0)) - 0.5;
+  gx0 = fract(gx0);
+  vec4 gz0 = vec4(0.5) - abs(gx0) - abs(gy0);
+  vec4 sz0 = step(gz0, vec4(0.0));
+  gx0 -= sz0 * (step(0.0, gx0) - 0.5);
+  gy0 -= sz0 * (step(0.0, gy0) - 0.5);
+
+  vec4 gx1 = ixy1 * (1.0 / 7.0);
+  vec4 gy1 = fract(floor(gx1) * (1.0 / 7.0)) - 0.5;
+  gx1 = fract(gx1);
+  vec4 gz1 = vec4(0.5) - abs(gx1) - abs(gy1);
+  vec4 sz1 = step(gz1, vec4(0.0));
+  gx1 -= sz1 * (step(0.0, gx1) - 0.5);
+  gy1 -= sz1 * (step(0.0, gy1) - 0.5);
+
+  vec3 g000 = vec3(gx0.x,gy0.x,gz0.x);
+  vec3 g100 = vec3(gx0.y,gy0.y,gz0.y);
+  vec3 g010 = vec3(gx0.z,gy0.z,gz0.z);
+  vec3 g110 = vec3(gx0.w,gy0.w,gz0.w);
+  vec3 g001 = vec3(gx1.x,gy1.x,gz1.x);
+  vec3 g101 = vec3(gx1.y,gy1.y,gz1.y);
+  vec3 g011 = vec3(gx1.z,gy1.z,gz1.z);
+  vec3 g111 = vec3(gx1.w,gy1.w,gz1.w);
+
+  vec4 norm0 = 1.79284291400159 - 0.85373472095314 * vec4(dot(g000, g000), dot(g010, g010), dot(g100, g100), dot(g110, g110));
+  g000 *= norm0.x;
+  g010 *= norm0.y;
+  g100 *= norm0.z;
+  g110 *= norm0.w;
+  vec4 norm1 = 1.79284291400159 - 0.85373472095314 * vec4(dot(g001, g001), dot(g011, g011), dot(g101, g101), dot(g111, g111));
+  g001 *= norm1.x;
+  g011 *= norm1.y;
+  g101 *= norm1.z;
+  g111 *= norm1.w;
+
+  float n000 = dot(g000, Pf0);
+  float n100 = dot(g100, vec3(Pf1.x, Pf0.yz));
+  float n010 = dot(g010, vec3(Pf0.x, Pf1.y, Pf0.z));
+  float n110 = dot(g110, vec3(Pf1.xy, Pf0.z));
+  float n001 = dot(g001, vec3(Pf0.xy, Pf1.z));
+  float n101 = dot(g101, vec3(Pf1.x, Pf0.y, Pf1.z));
+  float n011 = dot(g011, vec3(Pf0.x, Pf1.yz));
+  float n111 = dot(g111, Pf1);
+
+  vec3 fade_xyz = Pf0 * Pf0 * Pf0 * (Pf0 * (Pf0 * 6.0 - 15.0) + 10.0);
+  vec4 n_z = mix(vec4(n000, n100, n010, n110), vec4(n001, n101, n011, n111), fade_xyz.z);
+  vec2 n_yz = mix(n_z.xy, n_z.zw, fade_xyz.y);
+  float n_xyz = mix(n_yz.x, n_yz.y, fade_xyz.x);
+  return 2.2 * n_xyz;
+}
+float perlingFbmFireFXTempFunc(vec2 _pos, float _octaves, float _intencity, float persistence, float _scale, float _time) {
+  float final = 0.0;
+  float amplitude = _intencity;
+  for(float i = 0.0; i < _octaves; i++){
+    final += cnoiseFireFXTempFunc(vec3(_pos * _scale, _time)) * amplitude;
+    _scale *= 2.0;
+    amplitude *= persistence;
+  }
+  return (min(final, 1.0) + 1.0) * 0.5;
+}
+vec4 fireFXFunc(vec2 _uv_fire, vec2 _dir_fire, float _speed_fire, float _time_fire,
+  vec4 _col1_fire, vec4 _col2_fire, vec4 _col3_fire,
+  float _col1_pos, float _col2_pos, float _col3_pos){
+  float _x_pos = mix(0.0, 1.0, _uv_fire.y);
+  _uv_fire.x -= _dir_fire.x * _time_fire * _speed_fire;
+  _uv_fire.y += _dir_fire.y * _time_fire * _speed_fire;
+  float _y_pos = perlingFbmFireFXTempFunc(_uv_fire, 8.0, 0.4, 1.0, 1.0, 1.0);
+  float _1 = step(_y_pos, _x_pos - _col1_pos);
+  float _3 = step(_y_pos, _x_pos - _col3_pos);
+  float L1 = _1 - _3;
+  vec4 col = vec4(1.0);
+  col = mix(_col1_fire, _col3_fire, L1);
+
+  float _2 = step(_y_pos, _x_pos - _col2_pos);
+  float L2 = _3 - _2;
+  col.rgb = mix(col.rgb, _col2_fire.rgb, L2);
+  col = mix(vec4(0.0), col, _1);
+  return col;
+}
+
+
+void vertex() {
+// Output:0
+
+}
+
+void fragment() {
+// Input:7
+	vec3 n_out7p0 = vec3(UV, 0.0);
+
+// vec2Compose:8
+	float n_in8p0 = 1.00000;
+	float n_in8p1 = 90.00000;
+	vec3 n_out8p0;
+	{
+		n_out8p0.xy = vec2ComposeFunc(n_in8p0, n_in8p1);
+	}
+
+// Color:12
+	vec3 n_out12p0 = vec3(0.074242, 0.563621, 0.000000);
+	float n_out12p1 = 1.000000;
+
+// Color:11
+	vec3 n_out11p0 = vec3(0.112833, 0.856589, 0.000000);
+	float n_out11p1 = 1.000000;
+
+// Color:9
+	vec3 n_out9p0 = vec3(0.027933, 0.212058, 0.000000);
+	float n_out9p1 = 1.000000;
+
+// Input:3
+	float n_out3p0 = TIME;
+
+// FireFX:13
+	float n_in13p2 = 0.30000;
+	float n_in13p9 = 0.00000;
+	float n_in13p10 = 0.40000;
+	float n_in13p11 = 0.20000;
+	vec3 n_out13p0;
+	float n_out13p1;
+	{
+		vec4 n_out13p0n_out13p1 = fireFXFunc(n_out7p0.xy, n_out8p0.xy, n_in13p2, n_out3p0, vec4(n_out12p0, n_out12p1), vec4(n_out11p0, n_out11p1), vec4(n_out9p0, n_out9p1), n_in13p9, n_in13p10, n_in13p11);
+		n_out13p0 = n_out13p0n_out13p1.rgb;
+		n_out13p1 = n_out13p0n_out13p1.a;
+	}
+
+// Output:0
+	ALBEDO = n_out13p0;
+	ALPHA = n_out13p1;
+
+}
+
+void light() {
+// Output:0
+
+}
+"
+graph_offset = Vector2( -186, 28 )
+nodes/fragment/0/position = Vector2( 740, 140 )
+nodes/fragment/3/node = SubResource( 5 )
+nodes/fragment/3/position = Vector2( -40, 440 )
+nodes/fragment/7/node = SubResource( 6 )
+nodes/fragment/7/position = Vector2( -20, 20 )
+nodes/fragment/8/node = SubResource( 7 )
+nodes/fragment/8/position = Vector2( -140, 100 )
+nodes/fragment/9/node = SubResource( 8 )
+nodes/fragment/9/position = Vector2( -40, 360 )
+nodes/fragment/11/node = SubResource( 2 )
+nodes/fragment/11/position = Vector2( -60, 260 )
+nodes/fragment/12/node = SubResource( 3 )
+nodes/fragment/12/position = Vector2( -40, 180 )
+nodes/fragment/13/node = SubResource( 4 )
+nodes/fragment/13/position = Vector2( 335, 175 )
+nodes/fragment/connections = PoolIntArray( 7, 0, 13, 0, 13, 0, 0, 0, 13, 1, 0, 1, 12, 0, 13, 3, 12, 1, 13, 4, 11, 0, 13, 5, 11, 1, 13, 6, 9, 0, 13, 7, 9, 1, 13, 8, 3, 0, 13, 12, 8, 0, 13, 1 )
+
+[sub_resource type="ShaderMaterial" id=10]
+shader = SubResource( 9 )
+
+[node name="Spatial" type="Spatial"]
+
+[node name="Camera" type="Camera" parent="."]
+transform = Transform( 0.965926, 0, 0.258819, -0.12941, 0.866025, 0.482963, -0.224144, -0.5, 0.836516, 5, 6, 8 )
+
+[node name="DirectionalLight" type="DirectionalLight" parent="."]
+transform = Transform( 0.965926, -0.12941, 0.224144, 0, 0.866025, 0.5, -0.258819, -0.482963, 0.836516, 5, 8, 12 )
+
+[node name="MeshInstance" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0 )
+mesh = SubResource( 1 )
+material/0 = SubResource( 10 )
