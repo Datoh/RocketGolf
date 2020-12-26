@@ -17,7 +17,9 @@ emission_operator = 0
 emission_on_uv2 = false
 uv1_triplanar = true
 
-[node name="JumperWireLink" type="MeshInstance"]
+[node name="JumperWireLink" type="MeshInstance" groups=[
+"JumperLink",
+]]
 mesh = SubResource( 1 )
 material/0 = SubResource( 2 )
 script = ExtResource( 1 )

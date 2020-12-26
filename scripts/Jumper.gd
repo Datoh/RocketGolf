@@ -18,9 +18,9 @@ func enabled_disabled() -> void:
   var balls = $Area.get_overlapping_bodies()
   if balls.empty():
     return;
-  balls[0].do_jump(jump_force)
+  balls[0].impulse(jump_force)
 
 
 func _on_Area_body_entered(body: Node) -> void:
   if enabled:
-    body.do_jump(jump_force)
+    body.impulse(jump_force)
