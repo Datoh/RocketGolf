@@ -89,7 +89,6 @@ func _on_rocket_blow(rocket: Spatial, collider: Spatial) -> void:
   var explosion = Explosion.instance()  
   $Rockets.add_child(explosion)
   explosion.global_transform.origin = rocket.global_transform.origin
-  explosion.launch()
   var hit = rocket.hit(ball, ball.global_transform.origin)
   # 0: hit ball directly, 1: hit ball indrectly, 2: hit but not the ball
   AudioManager.play("res://assets/audio/lowFrequency_explosion_001.ogg", rocket.global_transform.origin)
