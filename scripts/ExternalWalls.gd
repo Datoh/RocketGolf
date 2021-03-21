@@ -11,6 +11,7 @@ var mdt := MeshDataTool.new()
 
 signal ball_falling(ball)
 
+
 func _ready() -> void:
   if !enabled_force_field:
     $ForceField.queue_free()
@@ -21,11 +22,12 @@ func _ready() -> void:
   for obj in get_tree().get_nodes_in_group("external_wall"):
     if obj is MeshInstance:
       _add_mesh(obj.mesh, Transform())
+    if obj is GridMap:
+      _add_meshes(obj, obj.get_meshes())
     if obj is CSGShape:
       if obj.is_root_shape():
         obj._update_shape()
-        var m = obj.get_meshes()
-        _add_mesh(m[1], obj.transform * m[0])
+        _add_meshes(obj, obj.get_meshes())
   mdt = null
   min_point.x += inset
   min_point.z += inset
@@ -57,6 +59,11 @@ func _ready() -> void:
   $ExternalWallsBall/Top.translation = Vector3(0.0, height / 2.0, 0.0)
   
   translation = center
+
+
+func _add_meshes(node: Node, meshes: Array) -> void:
+  for i in range(0, meshes.size() / 2):
+    _add_mesh(meshes[i * 2 + 1], meshes[i * 2] * node.transform)
 
 
 func _add_mesh(mesh: Mesh, transform: Transform) -> void:

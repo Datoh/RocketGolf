@@ -1,4 +1,4 @@
-extends CSGCylinder
+extends StaticBody
 
 export(int) var time_ball_in_hole = 3
 

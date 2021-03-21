@@ -16,6 +16,15 @@ func _ready() -> void:
   Global.level_time = 0
   if Global.debug_overlay:
     _debug_overlay()
+  _init_collision($Content)
+    
+    
+func _init_collision(node: Node) -> void:
+  if node is StaticBody:
+    node.collision_layer = 0
+    node.collision_mask = 1 + 2 + 4
+  for child in node.get_children():
+    _init_collision(child)
 
 
 func _debug_overlay() -> void:
@@ -26,8 +35,11 @@ func _debug_overlay() -> void:
     debug_overlay = load("res://scenes/DebugOverlay.tscn").instance()
     debug_overlay.add_stat("Rocket hit", self, "_dbg_last_colllider_rocket", true)
     debug_overlay.add_stat("Checkpoint", ball, "priority_position", false)
-    debug_overlay.add_stat("Ball linear_velocity", ball, "linear_velocity", false)
-    debug_overlay.add_stat("Ball angular_velocity", ball, "angular_velocity", false)
+#    debug_overlay.add_stat("Player position", $Player, "global_transform", false)
+#    debug_overlay.add_stat("Player velocity", $Player, "velocity", false)
+#    debug_overlay.add_stat("Player is on floor", $Player, "is_on_floor", true)
+#    debug_overlay.add_stat("Ball linear_velocity", ball, "linear_velocity", false)
+#    debug_overlay.add_stat("Ball angular_velocity", ball, "angular_velocity", false)
     add_child(debug_overlay)
   Global.debug_overlay = debug_overlay != null
 

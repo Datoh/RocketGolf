@@ -23,19 +23,19 @@ constant = Vector3( 1, 0.5, 0 )
 [sub_resource type="VisualShaderNodeScalarConstant" id=5]
 constant = 10.0
 
-[sub_resource type="VisualShaderNodeVectorOp" id=7]
+[sub_resource type="VisualShaderNodeVectorOp" id=6]
 operator = 2
 
-[sub_resource type="VisualShaderNodeScalarUniform" id=8]
+[sub_resource type="VisualShaderNodeScalarUniform" id=7]
 uniform_name = "Intensity"
 
-[sub_resource type="VisualShaderNodeColorUniform" id=9]
+[sub_resource type="VisualShaderNodeColorUniform" id=8]
 uniform_name = "TintColor"
 
-[sub_resource type="VisualShaderNodeVectorOp" id=10]
+[sub_resource type="VisualShaderNodeVectorOp" id=9]
 operator = 2
 
-[sub_resource type="VisualShaderNodeScalarConstant" id=14]
+[sub_resource type="VisualShaderNodeScalarConstant" id=10]
 constant = 1.0
 
 [sub_resource type="VisualShaderNodeInput" id=11]
@@ -138,7 +138,7 @@ void light() {
 "
 graph_offset = Vector2( -282, -115.5 )
 nodes/fragment/0/position = Vector2( 880, -80 )
-nodes/fragment/2/node = SubResource( 9 )
+nodes/fragment/2/node = SubResource( 8 )
 nodes/fragment/2/position = Vector2( 280, 0 )
 nodes/fragment/6/node = SubResource( 11 )
 nodes/fragment/6/position = Vector2( -340, -20 )
@@ -154,13 +154,13 @@ nodes/fragment/14/node = SubResource( 4 )
 nodes/fragment/14/position = Vector2( -340, 80 )
 nodes/fragment/15/node = SubResource( 5 )
 nodes/fragment/15/position = Vector2( -380, 200 )
-nodes/fragment/17/node = SubResource( 7 )
+nodes/fragment/17/node = SubResource( 6 )
 nodes/fragment/17/position = Vector2( 700, 240 )
-nodes/fragment/18/node = SubResource( 8 )
+nodes/fragment/18/node = SubResource( 7 )
 nodes/fragment/18/position = Vector2( 480, 280 )
-nodes/fragment/21/node = SubResource( 10 )
+nodes/fragment/21/node = SubResource( 9 )
 nodes/fragment/21/position = Vector2( 480, -60 )
-nodes/fragment/22/node = SubResource( 14 )
+nodes/fragment/22/node = SubResource( 10 )
 nodes/fragment/22/position = Vector2( -160, 180 )
 nodes/fragment/connections = PoolIntArray( 11, 0, 8, 0, 6, 0, 11, 0, 15, 0, 10, 1, 8, 0, 12, 0, 14, 0, 8, 1, 10, 0, 8, 3, 2, 0, 21, 0, 12, 0, 21, 1, 21, 0, 0, 0, 21, 0, 17, 0, 18, 0, 17, 1, 12, 0, 0, 1, 17, 0, 0, 5, 22, 0, 8, 2 )
 

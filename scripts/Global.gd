@@ -22,7 +22,7 @@ var total_rockets_count := 0
 var total_time := 0
 var total_score := 0
 
-var debug_overlay := false
+var debug_overlay := true
 
 var key_value := 0
 var keys = [

@@ -3,13 +3,14 @@
 [ext_resource path="res://scripts/Level.gd" type="Script" id=1]
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/ExternalWalls.tscn" type="PackedScene" id=3]
-[ext_resource path="res://scenes/Hole.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/Hole2.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/Ball.tscn" type="PackedScene" id=5]
 [ext_resource path="res://scenes/TeleportDestination.tscn" type="PackedScene" id=6]
 [ext_resource path="res://scenes/Hud.tscn" type="PackedScene" id=7]
 [ext_resource path="res://scenes/Teleport.tscn" type="PackedScene" id=8]
 [ext_resource path="res://assets/images/dark_grid.tres" type="Material" id=9]
 [ext_resource path="res://assets/images/green_grid.tres" type="Material" id=10]
+
 
 [sub_resource type="GIProbeData" id=1]
 bounds = AABB( -10, -12, -29, 20, 24, 58 )

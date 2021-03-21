@@ -76,7 +76,5 @@ func _physics_process(delta: float) -> void:
     colliding_position = colliding_info.position
     if colliding_body.is_in_group("jumper_trigger"):
       colliding_body.enabled_disabled()
-    if colliding_body.is_in_group("jumper_straight"):
-      colliding_body.impulse()
     emit_signal("rocket_blow", self, colliding_body)
     queue_free()
