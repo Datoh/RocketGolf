@@ -3,6 +3,8 @@ extends StaticBody
 func _ready() -> void:
   for child in get_children():
     _check_child(name, child)
+  if get_tree().root.find_node(name + "Destination", true, false) == null:
+    printerr("JumperTrigger: Destination missing [" + name + "Destination] for node [" + name + "]")
 
 
 func _check_child(group_name: String, node: Node):
