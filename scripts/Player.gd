@@ -20,6 +20,7 @@ signal fire_rocket(rocket)
 
 const Rocket = preload("res://scenes/Rocket.tscn")
 
+
 func _ready() -> void:
   Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
@@ -66,7 +67,7 @@ func _physics_process(delta: float) -> void:
 
   velocity.x = desired_velocity.x
   velocity.z = desired_velocity.z
-  velocity = move_and_slide(velocity, Vector3.UP, true)
+  velocity = move_and_slide(velocity, Vector3.UP)
   if jump and is_on_floor():
     velocity.y += jump_speed
 
