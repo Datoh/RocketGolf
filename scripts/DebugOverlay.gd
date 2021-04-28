@@ -8,7 +8,7 @@ func add_stat(stat_name: String, object: Object, stat_ref: String, is_method: bo
   stats.append([stat_name, object, stat_ref, is_method])
 
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
   var label_text := ""
 
   label_text += str("FPS: ", Engine.get_frames_per_second()) + "\n"
