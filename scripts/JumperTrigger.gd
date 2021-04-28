@@ -2,16 +2,16 @@ extends StaticBody
 
 func _ready() -> void:
   for child in get_children():
-    _check_child(name, child)
+    _add_link_child(name, child)
   if get_tree().root.find_node(name + "Destination", true, false) == null:
     printerr("JumperTrigger: Destination missing [" + name + "Destination] for node [" + name + "]")
 
 
-func _check_child(group_name: String, node: Node):
+func _add_link_child(group_name: String, node: Node):
   if node.is_in_group("JumperLink"):
     node.add_to_group(group_name)
   for child in node.get_children():
-    _check_child(group_name, child)
+    _add_link_child(group_name, child)
 
 
 func enabled_disabled() -> void:
