@@ -10,11 +10,13 @@ export(float) var factor_add_up_hit_indirectly := 1.0
 var velocity := Vector3.ZERO
 var colliding_body: Spatial = null
 var colliding_position := Vector3.ZERO
+var origin := Vector3.ZERO
 
 signal rocket_blow(rocket)
 
 
 func launch(origin: Transform, direction: Transform) -> void:
+  self.origin = origin.origin
   global_transform = origin
   transform = direction
   velocity = -transform.basis.z * speed

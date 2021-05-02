@@ -10,6 +10,8 @@ var init_linear_velocity := Vector3.ZERO
 var init_angular_velocity := Vector3.ZERO
 var init_impulse := Vector3.ZERO
 
+var is_on_floor = false
+
 func _physics_process(_delta: float) -> void:
   if _need_init():
     return
@@ -60,3 +62,13 @@ func checkpoint(position: Vector3, checkpoint_priority) -> void:
   if priority_position < checkpoint_priority:
     priority_position = checkpoint_priority
     ball_position.origin = position
+
+
+func _on_Ball_body_entered(body: Node) -> void:
+  if not body.is_in_group("player") and not body.is_in_group("rocket"):
+    is_on_floor = true
+
+
+func _on_Ball_body_exited(body: Node) -> void:
+  if not body.is_in_group("player") and not body.is_in_group("rocket"):
+    is_on_floor = false

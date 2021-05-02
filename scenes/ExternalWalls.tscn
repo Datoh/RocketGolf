@@ -50,6 +50,28 @@ shape = SubResource( 3 )
 [node name="Right" type="CollisionShape" parent="ExternalWallsPlayer"]
 shape = SubResource( 3 )
 
+[node name="ExternalWallsRocket" type="Area" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="Forward" type="CollisionShape" parent="ExternalWallsRocket"]
+shape = SubResource( 3 )
+
+[node name="Backward" type="CollisionShape" parent="ExternalWallsRocket"]
+shape = SubResource( 3 )
+
+[node name="Left" type="CollisionShape" parent="ExternalWallsRocket"]
+shape = SubResource( 3 )
+
+[node name="Right" type="CollisionShape" parent="ExternalWallsRocket"]
+shape = SubResource( 3 )
+
+[node name="Top" type="CollisionShape" parent="ExternalWallsRocket"]
+shape = SubResource( 3 )
+
+[node name="Bottom" type="CollisionShape" parent="ExternalWallsRocket"]
+shape = SubResource( 3 )
+
 [node name="ExternalWallsBall" type="StaticBody" parent="."]
 collision_layer = 0
 collision_mask = 2
@@ -76,4 +98,6 @@ collision_mask = 2
 
 [node name="CollisionShape" type="CollisionShape" parent="FallingArea"]
 shape = SubResource( 4 )
+
+[connection signal="body_entered" from="ExternalWallsRocket" to="." method="_on_ExternalWallsRocket_body_entered"]
 [connection signal="body_entered" from="FallingArea" to="." method="_on_FallingArea_body_entered"]

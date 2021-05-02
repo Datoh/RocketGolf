@@ -105,7 +105,9 @@ data = SubResource( 2 )
 transform = Transform( 0.638068, -0.0495889, 0.768381, -0.634516, 0.531451, 0.561203, -0.436187, -0.845636, 0.307637, 20, 49, 20 )
 light_indirect_energy = 0.7
 shadow_enabled = true
+
 [connection signal="win" from="Content/Ground2/Hole" to="." method="_on_Hole_win"]
-[connection signal="fire_rocket" from="Player" to="." method="_on_Player_fire_rocket"]
 [connection signal="fire_rocket" from="Player" to="Hud" method="_on_Player_fire_rocket"]
+[connection signal="fire_rocket" from="Player" to="." method="_on_Player_fire_rocket"]
 [connection signal="ball_falling" from="ExternalWalls" to="." method="_on_ball_falling"]
+[connection signal="rocket_out" from="ExternalWalls" to="." method="_on_rocket_out"]

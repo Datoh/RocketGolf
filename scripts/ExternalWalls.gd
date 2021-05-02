@@ -10,6 +10,7 @@ var max_point = null
 var mdt := MeshDataTool.new()
 
 signal ball_falling(ball)
+signal rocket_out(rocket)
 
 func _ready() -> void:
   if !enabled_force_field:
@@ -37,6 +38,18 @@ func _ready() -> void:
   var center = min_point + size / 2.0
 
   $ForceField.mesh.size = size
+  $ExternalWallsRocket/Forward.scale = Vector3(size.x + inset * 3.0, height, 1.0)
+  $ExternalWallsRocket/Forward.translation = Vector3(0.0, 0.0, size.z / 2.0 + inset + 0.5)
+  $ExternalWallsRocket/Backward.scale = Vector3(size.x + inset * 3.0, height, 1.0)
+  $ExternalWallsRocket/Backward.translation = Vector3(0.0, 0.0, -(size.z / 2.0 + inset + 0.5))
+  $ExternalWallsRocket/Left.scale = Vector3(1.0, height, size.z + inset * 3.0)
+  $ExternalWallsRocket/Left.translation = Vector3(-(size.x / 2.0 + inset + 0.5), 0.0, 0.0)
+  $ExternalWallsRocket/Right.scale = Vector3(1.0, height, size.z + inset * 2.0)
+  $ExternalWallsRocket/Right.translation = Vector3(size.x / 2.0 + inset + 0.5, 0.0, 0.0)
+  $ExternalWallsRocket/Top.scale = Vector3(size.x, 1.0, size.z)
+  $ExternalWallsRocket/Top.translation = Vector3(0.0, height / 2.0, 0.0)
+  $ExternalWallsRocket/Bottom.scale = Vector3(size.x, 1.0, size.z)
+  $ExternalWallsRocket/Bottom.translation = Vector3(0.0, -height / 2.0, 0.0)
   $ExternalWallsPlayer/Forward.scale = Vector3(size.x + inset * 2.0, height, 1.0)
   $ExternalWallsPlayer/Forward.translation = Vector3(0.0, 0.0, size.z / 2.0 + inset + 0.5)
   $ExternalWallsPlayer/Backward.scale = Vector3(size.x + inset * 2.0, height, 1.0)
@@ -75,3 +88,7 @@ func _add_mesh(mesh: Mesh, transform: Transform) -> void:
 
 func _on_FallingArea_body_entered(body: Node) -> void:
   emit_signal("ball_falling", body)
+
+
+func _on_ExternalWallsRocket_body_entered(body: Node) -> void:
+  emit_signal("rocket_out", body)

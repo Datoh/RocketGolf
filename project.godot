@@ -9,6 +9,11 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Object",
+"class": "PlayerStats",
+"language": "GDScript",
+"path": "res://scripts/PlayerStats.gd"
+}, {
 "base": "VisualShaderNodeCustom",
 "class": "VisualShaderNodeUVswirl",
 "language": "GDScript",
@@ -20,6 +25,7 @@ _global_script_classes=[ {
 "path": "res://assets/shaders/sinTime.gd"
 } ]
 _global_script_class_icons={
+"PlayerStats": "",
 "VisualShaderNodeUVswirl": "",
 "VisualShaderToolsSinTIME": ""
 }
