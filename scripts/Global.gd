@@ -15,13 +15,6 @@ var levels = [
 ]
 var level_index = 0
 
-var level_rockets_count := 0
-var level_time := 0
-var level_score := 0
-var total_rockets_count := 0
-var total_time := 0
-var total_score := 0
-
 var debug_overlay := false
 
 var key_value := 0
@@ -29,6 +22,8 @@ var keys = [
   "wasd (F1) - R to restart",
   "zqsd (F1) - R to restart",
  ]
+
+var player_stats = []
 
 func _ready() -> void:
   var save_game = File.new()
@@ -55,6 +50,7 @@ func next_level() -> void:
 
 
 func restart() -> void:
+  player_stats.clear()
   level_index = 0
   get_tree().change_scene("res://scenes/levels/" + levels[level_index] + ".tscn")
 

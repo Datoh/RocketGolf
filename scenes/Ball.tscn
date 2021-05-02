@@ -37,3 +37,6 @@ collision_mask = 0
 
 [node name="CollisionShape" type="CollisionShape" parent="StaticBodyBall"]
 shape = SubResource( 3 )
+
+[connection signal="body_entered" from="." to="." method="_on_Ball_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_Ball_body_exited"]

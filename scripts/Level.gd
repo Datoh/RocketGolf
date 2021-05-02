@@ -5,15 +5,17 @@ export(String) var title = "Level test"
 const Explosion = preload("res://scenes/Explosion.tscn")
 
 onready var ball := $Ball
+onready var player := $Player
 var debug_overlay = null
 
 var win = false
 var last_collider_rocket: Spatial = null
+var player_stats = PlayerStats.new()
 
 func _ready() -> void:
   $Hud.set_title(title)
-  Global.level_rockets_count = 0
-  Global.level_time = 0
+  $Hud.player_stats = player_stats
+  Global.player_stats.append(player_stats)
   if Global.debug_overlay:
     _debug_overlay()
 
@@ -53,7 +55,7 @@ func _physics_process(_delta: float) -> void:
 
 
 func restart() -> void:
-  $Player.init()
+  player.init()
   $Ball.init()
   for rocket in $Rockets.get_children():
     $Rockets.remove_child(rocket)
@@ -61,26 +63,24 @@ func restart() -> void:
 
 
 func _on_Hole_win() -> void:
-  AudioManager.play("res://assets/audio/jingles_STEEL15.ogg", $Player.global_transform.origin)
+  AudioManager.play("res://assets/audio/jingles_STEEL15.ogg", player.global_transform.origin)
   
   win = true
-  $Player.enabled = false
+  player.enabled = false
 
-  Global.level_score = 100
-  Global.level_score -= int(float(Global.level_time - (Global.level_time % 10)) / 10)
-  Global.level_score -= Global.level_rockets_count * 5
-  Global.level_score = int(max(0, Global.level_score))
+  player_stats.score = 100
+  player_stats.score -= int(float(player_stats.time - (player_stats.time % 10)) / 10)
+  player_stats.score -= player_stats.rocket_count * 5
+  player_stats.score = int(max(0, player_stats.score))
 
-  Global.total_time += Global.level_time
-  Global.total_rockets_count += Global.level_rockets_count
-  Global.total_score += Global.level_score
+  var total = PlayerStats.merge(Global.player_stats)
 
   $Hud.draw_victory()
  
 
 func _on_Player_fire_rocket(rocket: Spatial) -> void:
   $Rockets.add_child(rocket)
-  Global.total_rockets_count += 1
+  player_stats.rocket_count += 1
   rocket.connect("rocket_blow", self, "_on_rocket_blow")
 
 
@@ -89,15 +89,29 @@ func _on_rocket_blow(rocket: Spatial, collider: Spatial) -> void:
   var explosion = Explosion.instance()  
   $Rockets.add_child(explosion)
   explosion.global_transform.origin = rocket.global_transform.origin
+
+  # 0: hit ball directly, 1: hit ball indirectly, 2: hit but not the ball
   var hit = rocket.hit(ball, ball.global_transform.origin)
-  # 0: hit ball directly, 1: hit ball indrectly, 2: hit but not the ball
+
   AudioManager.play("res://assets/audio/lowFrequency_explosion_001.ogg", rocket.global_transform.origin)
   if hit == 0:
     AudioManager.play("res://assets/audio/impactMetal_000.ogg", rocket.global_transform.origin)
 
+  var is_air_shot = hit == 0 and not ball.is_on_floor
+  var distance = rocket.global_transform.origin.distance_squared_to(rocket.origin) if hit != 2 else 0.0
+  player_stats.air_shot_count += 1 if is_air_shot else 0
+  player_stats.hit_count += 1 if hit != 2 else 0
+  player_stats.longuest_air_shot = distance if is_air_shot and distance > player_stats.longuest_air_shot else player_stats.longuest_air_shot
+  player_stats.longuest_shot = distance if distance > player_stats.longuest_shot else player_stats.longuest_shot
+  player_stats.longuest_shot_serie = 0 if hit == 2 else player_stats.longuest_shot_serie + 1
+
 
 func _on_ball_falling(falling_ball: RigidBody) -> void:
   falling_ball.init()
+
+
+func _on_rocket_out(rocket) -> void:
+  player_stats.longuest_shot_serie = 0
 
 
 func _dbg_last_colllider_rocket() -> String:
