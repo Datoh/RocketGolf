@@ -27,9 +27,7 @@ title = "Double shot"
 
 [node name="Content" type="Spatial" parent="."]
 
-[node name="Ground" type="CSGBox" parent="Content" groups=[
-"external_wall",
-]]
+[node name="Ground" type="CSGBox" parent="Content" groups=["external_wall"]]
 use_in_baked_light = true
 use_collision = true
 collision_layer = 0
@@ -38,9 +36,7 @@ width = 20.0
 depth = 50.0
 material = ExtResource( 9 )
 
-[node name="Top4" type="CSGBox" parent="Content" groups=[
-"external_wall",
-]]
+[node name="Top4" type="CSGBox" parent="Content" groups=["external_wall"]]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6, 11 )
 use_in_baked_light = true
 use_collision = true
@@ -50,9 +46,7 @@ width = 20.0
 height = 14.0
 material = ExtResource( 9 )
 
-[node name="Top2" type="CSGBox" parent="Content" groups=[
-"external_wall",
-]]
+[node name="Top2" type="CSGBox" parent="Content" groups=["external_wall"]]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 10 )
 use_in_baked_light = true
 use_collision = true
@@ -105,9 +99,3 @@ shadow_enabled = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9, 1 )
 extents = Vector3( 10, 12, 29 )
 data = SubResource( 1 )
-
-[connection signal="win" from="Content/Top2/Hole" to="." method="_on_Hole_win"]
-[connection signal="fire_rocket" from="Player" to="Hud" method="_on_Player_fire_rocket"]
-[connection signal="fire_rocket" from="Player" to="." method="_on_Player_fire_rocket"]
-[connection signal="ball_falling" from="ExternalWalls" to="." method="_on_ball_falling"]
-[connection signal="rocket_out" from="ExternalWalls" to="." method="_on_rocket_out"]

@@ -7,8 +7,8 @@ var player_stats = null
 
 func _ready() -> void:
   find_node("KeyLabel").text = Global.keys[Global.key_value]
-  
-  
+
+
 func set_title(title: String) -> void:
   find_node("TitleLabel").text = str(Global.level_index + 1) + ". " + title
 

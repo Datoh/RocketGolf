@@ -68,7 +68,7 @@ func _ready() -> void:
   $ExternalWallsBall/Right.translation = Vector3(size.x / 2.0 + 0.5, 0.0, 0.0)
   $ExternalWallsBall/Top.scale = Vector3(size.x, 1.0, size.z)
   $ExternalWallsBall/Top.translation = Vector3(0.0, height / 2.0, 0.0)
-  
+
   translation = center
 
 

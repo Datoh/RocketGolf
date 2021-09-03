@@ -25,9 +25,7 @@ title = "King of the hill"
 
 [node name="Content" type="Spatial" parent="."]
 
-[node name="Ground1" type="CSGBox" parent="Content" groups=[
-"external_wall",
-]]
+[node name="Ground1" type="CSGBox" parent="Content" groups=["external_wall"]]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -45 )
 use_in_baked_light = true
 use_collision = true
@@ -37,9 +35,7 @@ width = 20.0
 depth = 10.0
 material = ExtResource( 7 )
 
-[node name="Ground2" type="CSGBox" parent="Content" groups=[
-"external_wall",
-]]
+[node name="Ground2" type="CSGBox" parent="Content" groups=["external_wall"]]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 50 )
 use_in_baked_light = true
 use_collision = true
@@ -55,9 +51,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.5, 0 )
 use_in_baked_light = true
 material = ExtResource( 8 )
 
-[node name="CSGPolygon" type="CSGPolygon" parent="Content" groups=[
-"external_wall",
-]]
+[node name="CSGPolygon" type="CSGPolygon" parent="Content" groups=["external_wall"]]
 transform = Transform( -3.49691e-06, 0, 20, 0, 1, 0, -80, 0, -8.74228e-07, 10, 0, 40 )
 use_in_baked_light = true
 use_collision = true
@@ -91,9 +85,3 @@ data = SubResource( 1 )
 transform = Transform( -0.707107, 0.683013, -0.183013, 0.612373, 0.720916, 0.324469, 0.353553, 0.117362, -0.928023, 5, 39, -30 )
 light_indirect_energy = 0.7
 shadow_enabled = true
-
-[connection signal="win" from="Content/Ground2/Hole" to="." method="_on_Hole_win"]
-[connection signal="fire_rocket" from="Player" to="Hud" method="_on_Player_fire_rocket"]
-[connection signal="fire_rocket" from="Player" to="." method="_on_Player_fire_rocket"]
-[connection signal="ball_falling" from="ExternalWalls" to="." method="_on_ball_falling"]
-[connection signal="rocket_out" from="ExternalWalls" to="." method="_on_rocket_out"]

@@ -59,7 +59,7 @@ func switch_keys() -> void:
   var old_key_value = key_value
   key_value = (key_value + 1) % 2
   set_keys(old_key_value, key_value)
-  
+
   var save_game = File.new()
   save_game.open(SAVEGAME, File.WRITE)
   save_game.store_line(str(key_value))
@@ -72,13 +72,13 @@ func set_keys(from: int, to: int) -> void:
   _add_event_input_map("ui_left", to)
   _add_event_input_map("ui_up", to)
 
-  
+
 func _remove_event_input_map(action: String, key: int):
   var ev = InputEventKey.new()
   ev.scancode = _get_key(action, key)
   InputMap.action_erase_event(action, ev)
 
-  
+
 func _add_event_input_map(action: String, key: int):
   var ev = InputEventKey.new()
   ev.scancode = _get_key(action, key)
@@ -97,6 +97,6 @@ func _get_key(action: String, key: int) -> int:
     elif key == 1:
       return KEY_Q
   return 0
-  
-  
-  
+
+
+

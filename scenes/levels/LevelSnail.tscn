@@ -27,9 +27,7 @@ title = "Snail"
 
 [node name="Content" type="Spatial" parent="."]
 
-[node name="Ground" type="CSGBox" parent="Content" groups=[
-"external_wall",
-]]
+[node name="Ground" type="CSGBox" parent="Content" groups=["external_wall"]]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -23, 0, 0 )
 use_in_baked_light = true
 use_collision = true
@@ -39,9 +37,7 @@ width = 6.0
 depth = 6.0
 material = ExtResource( 5 )
 
-[node name="Ground3" type="CSGBox" parent="Content" groups=[
-"external_wall",
-]]
+[node name="Ground3" type="CSGBox" parent="Content" groups=["external_wall"]]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, 0 )
 use_in_baked_light = true
 use_collision = true
@@ -50,9 +46,7 @@ collision_mask = 7
 width = 20.0
 material = ExtResource( 5 )
 
-[node name="Ground4" type="CSGBox" parent="Content" groups=[
-"external_wall",
-]]
+[node name="Ground4" type="CSGBox" parent="Content" groups=["external_wall"]]
 transform = Transform( -1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, -1, 0, -11 )
 use_in_baked_light = true
 use_collision = true
@@ -61,9 +55,7 @@ collision_mask = 7
 width = 20.0
 material = ExtResource( 5 )
 
-[node name="Ground5" type="CSGBox" parent="Content" groups=[
-"external_wall",
-]]
+[node name="Ground5" type="CSGBox" parent="Content" groups=["external_wall"]]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 0, -22 )
 use_in_baked_light = true
 use_collision = true
@@ -72,9 +64,7 @@ collision_mask = 7
 width = 22.0
 material = ExtResource( 5 )
 
-[node name="Ground6" type="CSGBox" parent="Content" groups=[
-"external_wall",
-]]
+[node name="Ground6" type="CSGBox" parent="Content" groups=["external_wall"]]
 transform = Transform( -1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, -23, 0, -15 )
 use_in_baked_light = true
 use_collision = true
@@ -83,9 +73,7 @@ collision_mask = 7
 width = 16.0
 material = ExtResource( 5 )
 
-[node name="Ground7" type="CSGBox" parent="Content" groups=[
-"external_wall",
-]]
+[node name="Ground7" type="CSGBox" parent="Content" groups=["external_wall"]]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 0, -8 )
 use_in_baked_light = true
 use_collision = true
@@ -94,9 +82,7 @@ collision_mask = 7
 width = 16.0
 material = ExtResource( 5 )
 
-[node name="Ground8" type="CSGBox" parent="Content" groups=[
-"external_wall",
-]]
+[node name="Ground8" type="CSGBox" parent="Content" groups=["external_wall"]]
 transform = Transform( -1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, -7, 0, -12 )
 use_in_baked_light = true
 use_collision = true
@@ -105,9 +91,7 @@ collision_mask = 7
 width = 6.0
 material = ExtResource( 5 )
 
-[node name="Ground9" type="CSGBox" parent="Content" groups=[
-"external_wall",
-]]
+[node name="Ground9" type="CSGBox" parent="Content" groups=["external_wall"]]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 0, -15 )
 use_in_baked_light = true
 use_collision = true
@@ -120,9 +104,7 @@ material = ExtResource( 5 )
 [node name="Hole" parent="Content/Ground9" instance=ExtResource( 2 )]
 material = ExtResource( 6 )
 
-[node name="Ground10" type="CSGBox" parent="Content" groups=[
-"external_wall",
-]]
+[node name="Ground10" type="CSGBox" parent="Content" groups=["external_wall"]]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 0, -15 )
 use_in_baked_light = true
 use_collision = true
@@ -131,9 +113,7 @@ collision_mask = 7
 width = 6.0
 material = ExtResource( 5 )
 
-[node name="Ground11" type="CSGBox" parent="Content" groups=[
-"external_wall",
-]]
+[node name="Ground11" type="CSGBox" parent="Content" groups=["external_wall"]]
 transform = Transform( -1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, 7, 0, -11 )
 use_in_baked_light = true
 use_collision = true
@@ -142,9 +122,7 @@ collision_mask = 7
 width = 40.0
 material = ExtResource( 5 )
 
-[node name="Ground13" type="CSGBox" parent="Content" groups=[
-"external_wall",
-]]
+[node name="Ground13" type="CSGBox" parent="Content" groups=["external_wall"]]
 transform = Transform( -1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, -31, 0, -11 )
 use_in_baked_light = true
 use_collision = true
@@ -153,9 +131,7 @@ collision_mask = 7
 width = 40.0
 material = ExtResource( 5 )
 
-[node name="Ground12" type="CSGBox" parent="Content" groups=[
-"external_wall",
-]]
+[node name="Ground12" type="CSGBox" parent="Content" groups=["external_wall"]]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0, -30 )
 use_in_baked_light = true
 use_collision = true
@@ -164,9 +140,7 @@ collision_mask = 7
 width = 40.0
 material = ExtResource( 5 )
 
-[node name="Ground14" type="CSGBox" parent="Content" groups=[
-"external_wall",
-]]
+[node name="Ground14" type="CSGBox" parent="Content" groups=["external_wall"]]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0, 8 )
 use_in_baked_light = true
 use_collision = true
@@ -275,9 +249,3 @@ data = SubResource( 2 )
 transform = Transform( 0.638068, -0.0495889, 0.768381, -0.634516, 0.531451, 0.561203, -0.436187, -0.845636, 0.307637, 20, 49, 20 )
 light_indirect_energy = 0.7
 shadow_enabled = true
-
-[connection signal="win" from="Content/Ground9/Hole" to="." method="_on_Hole_win"]
-[connection signal="fire_rocket" from="Player" to="Hud" method="_on_Player_fire_rocket"]
-[connection signal="fire_rocket" from="Player" to="." method="_on_Player_fire_rocket"]
-[connection signal="ball_falling" from="ExternalWalls" to="." method="_on_ball_falling"]
-[connection signal="rocket_out" from="ExternalWalls" to="." method="_on_rocket_out"]
